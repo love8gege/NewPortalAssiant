@@ -1,0 +1,86 @@
+﻿<Window x:Class="NewPortalAssiant.View.CoverAddressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NewPortalAssiant.View"
+        mc:Ignorable="d"
+        Title="CoverAddressView" 
+         Name="window"
+        FontFamily="Microsoft YaHei" FontWeight="ExtraLight" FontSize="12"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        WindowStyle="None"  Background="{x:Null}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Assets/Styles/DefaultStyle.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Border Margin="5" Background="White" Height="450" Width="850" 
+            CornerRadius="5 5 0 0" BorderThickness="1" BorderBrush="#007DFA"
+            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+        <Border.Effect>
+            <DropShadowEffect Color="Black" ShadowDepth="10" BlurRadius="50" Opacity="0.5" Direction="270"/>
+        </Border.Effect>
+        <Grid>
+
+            <Border Background="#007DFA" Height="35" 
+                VerticalAlignment="Top" CornerRadius="0 0 0 0"
+                    >
+            </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+    
+                <Button Style="{StaticResource WindowControlButtonStyle}"
+                        Content="&#xe615;" Click="btnClose_Click" 
+                        Margin="0 0 5 5"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" >
+                <TextBlock Text="{Binding TitleInfo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Foreground="White" Margin="10 "/>
+            </StackPanel>
+            <Grid Margin="5 40 5 5">
+                <Grid.RowDefinitions>
+                   
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="1"
+                    
+                  Height="Auto"  
+                  ItemsSource="{Binding BoxAddressItems }" 
+                      
+                  CanUserResizeColumns="True" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False"  
+                  VerticalAlignment="Top" 
+                  HorizontalAlignment="Left" 
+                  LoadingRow="DataGrid_LoadingRow"
+                  SelectionChanged="DataGridBoxCoverAdd_SelectionChanged"                 
+                  >
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="箱体名称" Width="200" Binding="{Binding EQP_NAME}"  />
+                            <DataGridTextColumn Header="地址类型" Width="100" Binding="{Binding SEGM_TYPE}" />
+                            <DataGridTextColumn Header="占用" Width="35" Binding="{Binding isHaveBusiness}" />
+                            <DataGridTextColumn Header="标准地址全称" Width="500" Binding="{Binding STAND_NAME}" />
+
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu x:Name="RightMouseMenu" StaysOpen="true" Style="{x:Null}" Width="100" >
+                            <MenuItem x:Name="ChangeAddress" Header="地址变更" 
+                                          PreviewMouseLeftButtonDown="ChangeAddress_PreviewMouseLeftButtonDown"   
+                                          Icon="&#xe68b;" FontFamily="../Assets/Fonts/#iconfont"/>
+                            <MenuItem x:Name="FreeAccountBind" Header="游离绑定" 
+                                          PreviewMouseLeftButtonDown="FreeAccountBind_PreviewMouseLeftButtonDown"
+                                          Icon="&#xe610;" FontFamily="../Assets/Fonts/#iconfont"/>
+                        </ContextMenu>
+
+                        </DataGrid.ContextMenu>
+                    
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

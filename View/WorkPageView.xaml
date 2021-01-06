@@ -1,0 +1,569 @@
+﻿<UserControl x:Class="NewPortalAssiant.View.WorkPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NewPortalAssiant.View"
+             xmlns:custom="clr-namespace:NewPortalAssiant.Common"
+             
+             
+             mc:Ignorable="d" Name="WorkPage" FontFamily="Microsoft YaHei" FontWeight="ExtraLight" FontSize="12"
+             d:DesignHeight="450" d:DesignWidth="1350">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="SearchOltTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <TextBlock Text="请在此处放入包含OLT的信息..." 
+                                                       Grid.Column="1" VerticalAlignment="Center"
+                                                       Foreground="Gray" Name="mt" Visibility="Collapsed"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Grid>
+                            
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                            
+                            <DataTrigger Binding="{Binding Text,RelativeSource={RelativeSource Mode=Self }}" Value="">
+                                <Setter TargetName="mt" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="AccountTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <TextBlock Text="业务帐号..." 
+                                                       Grid.Column="1" VerticalAlignment="Center"
+                                                       Foreground="Gray" Name="mt1" Visibility="Collapsed"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Grid>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding Text,RelativeSource={RelativeSource Mode=Self }}" Value="">
+                                <Setter TargetName="mt1" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <!--网格线颜色-->
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="HorizontalGridLinesBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="#688CAF"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalGridLinesBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="#688CAF"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Background" Value="#86B9D2"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="0.5"></Setter>
+            <Setter Property="BorderBrush" Value="#688CAF"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="#FAFAFA" />
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="Black" />
+            <Style.Triggers>
+                <!--隔行换色-->
+                <Trigger Property="AlternationIndex" Value="0" >
+                    <Setter Property="Background" Value="#e7e7e7" />
+                </Trigger>
+                <Trigger Property="AlternationIndex" Value="1" >
+                    <Setter Property="Background" Value="#f2f2f2" />
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <!--<Setter Property="Foreground" Value="White"/>-->
+                </Trigger>
+
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <!--单元格样式触发-->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <TextBlock TextAlignment="Left" VerticalAlignment="Center"  >
+                           <ContentPresenter />
+                        </TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <!--<Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>-->
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Background" Value="Blue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value >
+                    <ControlTemplate TargetType="{x:Type GroupItem}"  >
+                        <Expander IsExpanded="False"  >
+                            <Expander.Header  >
+                                <StackPanel Orientation="Horizontal" Height="30">
+                                    <TextBlock Text="机框-槽位：" Foreground="Black" FontSize="12" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Path=Name}" 
+                                               Foreground="Black"  FontSize="12" VerticalAlignment="Center"
+                                                />
+                                </StackPanel>
+                            </Expander.Header>
+                            <ItemsPresenter />
+                        </Expander>
+                       
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+    <Grid IsEnabled="{Binding IsEnabledView,UpdateSourceTrigger=PropertyChanged}" >
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="23"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="OLT名称获取" Background="AliceBlue">
+            <StackPanel Margin="5">
+                <TextBox 
+                    Style="{DynamicResource SearchOltTextBoxStyle}" 
+                    Text="{Binding SearchOltInfo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    Height="30" VerticalContentAlignment="Center" 
+                    
+                    TextChanged="OltInfoChanged_TextChanged" PreviewMouseDown="TextBox_PreviewMouseDown" >
+                    
+                </TextBox>
+                <Grid Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox  Height="30" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" 
+                              Text="{Binding OltName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             >
+                    </TextBox>
+                    <Button Content="查询OLT" Height="30" Width="110" Grid.Column="1" Margin="10 0 40 0"
+                            Background="#007DEA"
+                            Cursor="Hand" 
+                            Click="QueryOltInfoButton_Click" ></Button>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="实用小工具" Grid.Column="1" Background="AliceBlue">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Margin="5" BorderBrush="Blue" BorderThickness="0.3">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        
+                        <TextBox x:Name="JKAccountTextBox"
+                                 Style="{DynamicResource AccountTextBoxStyle}"
+                                 Text="{Binding JkAccount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                 Height="30" Width="110"
+                                 VerticalContentAlignment="Center"/>
+                        <Button x:Name="FreeJKAccountButton" Content="游离帐号" Margin="10 0 0 0" Width="80" Background="#007DEA"
+                            Cursor="Hand" Click="FreeJKAccountButton_Click"/>
+                        <Button x:Name="FreeJKSvlanButton" Content="Svlan解绑" Margin="10 0 0 0"  Width="80" Background="#007DEA"
+                            Cursor="Hand" Click="FreeJKSvlanButton_Click"/>
+                    </StackPanel>
+                </Border>
+               
+               
+
+                <Button x:Name="AccountCuteButton" Content="帐号割接" Grid.Column="1" 
+                        Height="30" Width="80" Margin="5" Background="#007DEA"
+                            Cursor="Hand"/>
+                <Button x:Name="BatchAccountsOpreateButton" Content="批量游离/解绑" Grid.Column="2" 
+                        Height="30" Width="80" Margin="5" Background="#007DEA"
+                            Cursor="Hand"/>
+            </Grid>
+        </GroupBox>
+        
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330"/>
+                <ColumnDefinition Width="342"/>
+                <ColumnDefinition />
+                
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="OLT设备侧信息" Background="AliceBlue" >
+                <DataGrid ItemsSource="{Binding OcRowsItem,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="5"
+                          CanUserResizeColumns="True" 
+                      AutoGenerateColumns="False" 
+                      CanUserAddRows="False"  
+                      VerticalAlignment="Top" 
+                      HorizontalAlignment="Stretch"
+                          HeadersVisibility="All"
+                          RowHeaderWidth="0" SelectionChanged="DataGrid_Pon_SelectionChanged"
+                          LoadingRow="DataGrid_LoadingRow">
+                    <DataGrid.GroupStyle>
+                        <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}">
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <DataGridRowsPresenter />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PON口" Binding="{Binding NO}"  MinWidth="50"/>
+                        <DataGridTextColumn Header="状态" Binding="{Binding OPR_STATE}" MinWidth="30"/>
+                        <DataGridTextColumn Header="下联设备" Binding="{Binding EQP_NAME}" MinWidth="230"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+            <GroupBox Header="光交侧设备信息" Background="AliceBlue" Grid.Column="1" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBox Text="{Binding GuangjiaoPosName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                             Height="30" MinWidth="285"
+                             VerticalContentAlignment="Center"/>
+                        <Button Content="查询分光器" 
+                            HorizontalAlignment="Right" 
+                            Margin="5" Width="110" Height="30" 
+                            Background="#007DEA"
+                            Cursor="Hand" 
+                            Click="QueryGuangJiaoPosButton_Click"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding GuangjiaoPosPortRowsItems,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="5" Grid.Row="1"
+                          CanUserResizeColumns="True" 
+                      AutoGenerateColumns="False" 
+                      CanUserAddRows="False"  
+                      VerticalAlignment="Top" 
+                      HorizontalAlignment="Stretch"
+                          HeadersVisibility="All"
+                          RowHeaderWidth="0" 
+                              SelectionChanged="DataGrid_GuangJiaoPosPort_SelectionChanged" 
+                              LoadingRow="DataGrid_LoadingRow">
+                       
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="端口" Binding="{Binding NO}"  MinWidth="30"/>
+                            <DataGridTextColumn Header="状态" Binding="{Binding OPR_STATE}" MinWidth="30"/>
+                            <DataGridTextColumn Header="下联设备" Binding="{Binding EQP_NAME}" MinWidth="300"/>
+                            
+                        </DataGrid.Columns>
+                        <!--<DataGrid.ContextMenu>此处暂时不没有加入 对一级分光器端口的修改
+                            <ContextMenu x:Name="PortModifyMenu" StaysOpen="true" Style="{x:Null}" Width="105" >
+                                <MenuItem x:Name="MarkPortFree" Header="故障修复" 
+                                                      Icon="&#xe697;" FontFamily="../Assets/Fonts/#iconfont" PreviewMouseLeftButtonDown="MarkPortFree_PreviewMouseLeftButtonDown"  />
+                                <MenuItem x:Name="MarkPortBad" Header="标记为故障" 
+                                                      Icon="&#xe67d;" FontFamily="../Assets/Fonts/#iconfont" PreviewMouseLeftButtonDown="MarkPortBad_PreviewMouseLeftButtonDown" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>-->
+                    </DataGrid>
+                </Grid>
+                
+            </GroupBox>
+            <Grid Grid.Column="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="155"/>
+                </Grid.RowDefinitions>
+                <GroupBox  Header="分纤箱侧信息" Background="AliceBlue">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border CornerRadius="4" Background="White" Margin="2" BorderBrush="Gray" BorderThickness="0.5">
+                            
+                            <Grid Margin=" 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel>
+                                    <TextBox Text="{Binding FenxianPosName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                             Height="30" MinWidth="285"
+                             VerticalContentAlignment="Center"/>
+                                    <Button Content="查询分光器" 
+                            HorizontalAlignment="Right" 
+                            Margin="5" Width="110" Height="30" 
+                            Background="#007DEA"
+                            Cursor="Hand" 
+                            Click="QueryFenxianPosButton_Click"/>
+                                </StackPanel>
+                                <DataGrid ItemsSource="{Binding FenxianPosPortRowsItems,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="5" Grid.Row="1"
+                          CanUserResizeColumns="True" 
+                      AutoGenerateColumns="False" 
+                      CanUserAddRows="False"  
+                      VerticalAlignment="Top" 
+                      HorizontalAlignment="Stretch"
+                          HeadersVisibility="All"
+                          RowHeaderWidth="0" 
+                         LoadingRow="DataGrid_LoadingRow" 
+                                          SelectionChanged="DataGridPosPort_SelectionChanged">
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="端口" Binding="{Binding NO}"  MinWidth="30"/>
+                                        <DataGridTextColumn Header="状态" Binding="{Binding OPR_STATE}" MinWidth="30"/>
+                                        <DataGridTextColumn Header="业务帐号" Binding="{Binding ACC_NBR}" MinWidth="300"/>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ContextMenu>   
+                                        <ContextMenu x:Name="PosPortModifyMenu" StaysOpen="true" Style="{x:Null}" Width="105" >
+                                            <MenuItem x:Name="PosMarkPortFree" Header="故障修复" 
+                                                      Icon="&#xe697;" FontFamily="../Assets/Fonts/#iconfont" PreviewMouseLeftButtonDown="MarkPortFree_PreviewMouseLeftButtonDown"  />
+                                            <MenuItem x:Name="PosMarkPortBad" Header="标记为故障" 
+                                                      Icon="&#xe67d;" FontFamily="../Assets/Fonts/#iconfont" 
+                                                      PreviewMouseLeftButtonDown="MarkPortBad_PreviewMouseLeftButtonDown" />
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        <Border CornerRadius="4" Grid.Column="1" Background="White" Margin="2" BorderBrush="Gray" BorderThickness="0.5">
+                            <Grid  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" Margin="10 10 10 10">
+                                    <TextBlock Text="归属小区名称：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding ComAreaName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                         Width="230" Height="30"
+                                         VerticalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10 0 10 10">
+                                    <TextBlock Text="归属箱体名称：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding FenxianBoxName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="230" Height="30"
+                                         VerticalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                    <Button Content="设备管理" 
+                                            Height="30" Width="110" 
+                                            Cursor="Hand" 
+                                            Background="#007DEA" Margin="45 5 5 5"
+                                            Click="QueryEquipButton_Click"/>
+                                    <Button Content="覆盖地址" 
+                                            Height="30" Width="110" 
+                                            Cursor="Hand" 
+                                            Background="#007DEA" Margin="25 5 5 5"
+                                            Click="QueryCoverAddressButton_Click"/>
+                                </StackPanel>
+                                <DataGrid ItemsSource="{Binding BoxPosesDataBuizListItems,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Grid.Row="3" Margin="5"
+                                          CanUserResizeColumns="True" 
+                                            AutoGenerateColumns="False" 
+                                            CanUserAddRows="False"  
+                                                VerticalAlignment="Top" 
+                                            HorizontalAlignment="Stretch"
+                                                HeadersVisibility="All"
+                                                RowHeaderWidth="0" 
+                              
+                                                LoadingRow="DataGrid_LoadingRow" 
+                                          SelectionChanged="DataGridEquip_SelecttionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="资源列表" Binding="{Binding RES_NAME,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="330"  />
+                                        
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        
+                    </Grid>
+                    
+                </GroupBox>
+                <GroupBox Header="操作信息：" Grid.Row="1"  Background="AliceBlue" >
+                    
+                    <custom:ScrollingListBox ItemsSource="{Binding OperateInfo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ScrollingListBox_SelectionChanged"
+                     >
+                        <ListBox.ContextMenu>
+                            <ContextMenu x:Name="InfoListyMenu" StaysOpen="true" Style="{x:Null}" Width="100" >
+                                <MenuItem x:Name="ClearInfoList" Header="清空记录" Click="ClearInfoList_Click"
+                                          Icon="&#xe60e;" FontFamily="../Assets/Fonts/#iconfont" />                                
+                                
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </custom:ScrollingListBox>
+                    
+                </GroupBox>
+            </Grid>
+ 
+        </Grid>
+          
+            
+
+        
+
+        <DockPanel Grid.Row="2"  Grid.ColumnSpan="2" Height="23" >
+            <StatusBar DockPanel.Dock="Bottom" Background="#007DEA" 
+                       Foreground="White" FontFamily="Microsoft YaHei" >
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="650" />
+                                <ColumnDefinition Width="160" />
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem Grid.Column="2">
+                    <TextBlock Name="CurrentTableTB" Text="连云港铁通一点支撑中心" Margin="10,0,0,0" FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                </StatusBarItem>
+                
+                <StatusBarItem Grid.Column="3">
+                    <TextBlock Text="方案策划：徐进成" FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="4">
+                    <TextBlock Text="程序设计：刘昌露" FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="5">
+                    <TextBlock Text="Copyright ©  2020" FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="0" 
+                               HorizontalContentAlignment="Left" 
+                               Visibility="{Binding ShowProgress,UpdateSourceTrigger=PropertyChanged}">
+                    <StackPanel Orientation="Horizontal" Height="23" 
+                                
+                                VerticalAlignment="Center">
+                        <TextBlock Text="执行中：" Foreground="White" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <ProgressBar  x:Name="ShowProgress"
+                        Height="8" Width="500" Margin="0 0 10 0"                   
+                        IsIndeterminate="True" 
+                        VerticalAlignment="Center"
+                         Foreground="#CA5100"/>
+                    </StackPanel>
+                    
+                </StatusBarItem>
+            </StatusBar>
+
+        </DockPanel>
+
+    </Grid>
+</UserControl>

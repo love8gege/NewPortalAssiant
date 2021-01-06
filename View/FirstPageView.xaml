@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="NewPortalAssiant.View.FirstPageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NewPortalAssiant.View"
+        mc:Ignorable="d"
+         Height="450" Width="800" FontFamily="Microsoft YaHei" FontWeight="ExtraLight">
+    <Grid>
+        <Border CornerRadius="10" 
+                Width="450" Height="300" Margin="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="5" BlurRadius="50" Opacity="0.8" Direction="270"/>
+            </Border.Effect>
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/Images/banner1.jpg"/>
+            </Border.Background>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="../Assets/Images/icon.png"/>
+                    <StackPanel Grid.Column="1" 
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="综合资源管理系统"
+                                   FontSize="32" FontWeight="Bold" >
+
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#464646" BlurRadius="2" ShadowDepth="2" Opacity="1" />
+                            </TextBlock.Effect>
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Offset="0.0" Color="#ffffff" />
+                                        <GradientStop Offset="1.0" Color="#007DFA" />
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <TextBlock Text="辅助应用"
+                                   FontSize="18" 
+                                   HorizontalAlignment="Right"
+                                   Margin="0 10 0 0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#464646" BlurRadius="2" ShadowDepth="2" Opacity="1" />
+                            </TextBlock.Effect>
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Offset="0.0" Color="Gold" />
+                                        <GradientStop Offset="1.0" Color="#b7b7b7" />
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        
+                    </StackPanel>
+                </Grid>
+                <Border Grid.Row="1" BorderBrush="Wheat" BorderThickness="0 0 0 1" >
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" ShadowDepth="15" BlurRadius="50" Opacity="1" Direction="270"/>
+                    </Border.Effect>
+                </Border>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                    <TextBlock Text="中移铁通连云港一点支撑中心    Copyright ©  2020" 
+                               VerticalAlignment="Bottom" >
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#464646" BlurRadius="2" ShadowDepth="2" Opacity="1" />
+                        </TextBlock.Effect>
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Offset="0.0" Color="Gold" />
+                                    <GradientStop Offset="1.0" Color="#b7b7b7" />
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    
+                </StackPanel>
+            </Grid>
+            
+        </Border>
+    </Grid>
+</UserControl>

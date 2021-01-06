@@ -1,0 +1,515 @@
+﻿<Window x:Class="NewPortalAssiant.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NewPortalAssiant"
+        xmlns:common="clr-namespace:NewPortalAssiant.Common"
+        mc:Ignorable="d"
+        Title="新管线辅助软件" Height="820" Width="1380" Name="window"
+        FontFamily="Microsoft YaHei" FontWeight="ExtraLight" FontSize="12"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" AllowsTransparency="True" Background="{x:Null}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Assets/Styles/DefaultStyle.xaml"/>
+                <ResourceDictionary>
+                    <Style TargetType="RadioButton" x:Key="NavButtonStyle">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RadioButton">
+                                    <Border Background="Transparent" CornerRadius="8" x:Name="back">
+                                        <ContentControl Content="{TemplateBinding Content}" 
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center"
+                                                        Margin="20 4" FontSize="13"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="back" Property="Background" Value="#44FFFFFF"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="back" Property="Background" Value="#22FFFFFF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+                    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+                    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+                    <Style x:Key="PortalUserNameBoxStyle" TargetType="{x:Type TextBox}">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="AllowDrop" Value="true"/>
+                        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="0" 
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                                CornerRadius="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="&#xe622;" FontFamily="../Assets/Fonts/#iconfont" 
+                                           FontSize="20" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Foreground="#DDD"/>
+                                            <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" 
+                                              Focusable="false" 
+                                              HorizontalScrollBarVisibility="Hidden" 
+                                              VerticalScrollBarVisibility="Hidden"
+                                              VerticalAlignment="Center" MinHeight="20"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocused" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="PortalPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
+                        <Setter Property="PasswordChar" Value="●"/>
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="AllowDrop" Value="true"/>
+                        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="0" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True"
+                                CornerRadius="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="&#xe62a;" FontFamily="../Assets/Fonts/#iconfont" 
+                                           FontSize="20" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Foreground="#DDD"/>
+                                            <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" 
+                                              Focusable="false" 
+                                              HorizontalScrollBarVisibility="Hidden" 
+                                              VerticalScrollBarVisibility="Hidden"
+                                              VerticalAlignment="Center" MinHeight="20"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocused" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <ControlTemplate TargetType="Button" x:Key="PortalLoginButtonTemplate">
+
+                        <Border Background="#22000000" CornerRadius="5">
+                            <Grid>
+                                <Border CornerRadius="4" Background="#66000000" Name="back" Visibility="Hidden"/>
+                                <ContentControl Content="{TemplateBinding Content}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Visibility" Value="Visible" TargetName="back"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                    <Storyboard x:Key="HelpStoryboard">
+                        <DoubleAnimation Duration="0:0:0.2" To="0"
+                                         Storyboard.TargetName="HelpAnimation"
+                                         Storyboard.TargetProperty="X"/>
+                    </Storyboard>
+                    <Storyboard x:Key="CloseHelpStoryboard">
+                        <DoubleAnimation Duration="0:0:0.1" 
+                                         Storyboard.TargetName="HelpAnimation"
+                                         Storyboard.TargetProperty="X"/>
+                    </Storyboard>
+
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            
+
+           
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="btnHelp">
+            <BeginStoryboard Storyboard="{StaticResource HelpStoryboard}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="btnCloseHelp">
+            <BeginStoryboard Storyboard="{StaticResource CloseHelpStoryboard}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Border Margin="5" Background="White" CornerRadius="0" BorderThickness="1" BorderBrush="#007DFA">
+
+        <Border.Effect>
+            <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="0" Opacity="0.3" Direction="0"/>
+        </Border.Effect>
+        <Grid>
+           
+            <Border Background="#007DFA" Height="110" 
+                VerticalAlignment="Top" CornerRadius="0 0 0 0"
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Button x:Name="btnHelp" 
+                    Style="{StaticResource WindowControlButtonStyle}"
+                        Cursor="Hand"
+                        Content="&#xe92c;"   ToolTip="帮助"/>
+                <Button Style="{StaticResource WindowControlButtonStyle}"
+                        Content="&#xe651;" Click="btnMin_Click" ToolTip="最小化"/>
+                <Button Style="{StaticResource WindowControlButtonStyle}"
+                        Content="&#xe7bf;" Click="btnMax_Click" IsEnabled="False" ToolTip="帮助"/>
+                <Button Style="{StaticResource WindowControlButtonStyle}"
+                        Content="&#xe615;" Click="btnClose_Click" ToolTip="关闭"/>
+            </StackPanel>
+            <Grid Margin="0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="65"/>                    
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Border Background="White" VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Width="45" Height="45" 
+                        CornerRadius="50" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Opacity="0.3" Direction="0"/>
+                        </Border.Effect>
+                        <Border Width="42" Height="42" CornerRadius="50">
+                            <Border.Background>
+                                <ImageBrush ImageSource="../Assets/Images/Metro-Studio.png"/>
+                            </Border.Background>
+                        </Border>
+                    </Border>
+                    <StackPanel Orientation="Vertical" Margin="10 0 0 0">
+                        <TextBlock Text="{Binding Title}" Foreground="White" FontSize="18"/>
+                        <TextBlock Text="New Portal Assistant" Foreground="#88DDDDDD" FontSize="10" Margin="0 5 0 0"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 200 0">
+                    <Border Background="White" VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Width="31" Height="31" 
+                        CornerRadius="50" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Opacity="0.3" Direction="0"/>
+                        </Border.Effect>
+                        <Border Width="30" Height="30" CornerRadius="50">
+                            <Border.Background>
+                                <ImageBrush ImageSource="../Assets/Images/touxiang.png"/>
+                            </Border.Background>
+                        </Border>
+                    </Border>
+                    <StackPanel Orientation="Vertical" Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding userInfo.UserName}" Foreground="White" FontSize="14" />
+                    </StackPanel>
+                </StackPanel>
+                <Border BorderBrush="#DDD" BorderThickness="0.3" Grid.Row="1" CornerRadius="5" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="5"  >
+
+                            <Image Source="../Assets/Images/icon.png"  Margin="15 5 0 5">
+
+                            </Image>
+                            <Label Content="新管线登录" 
+                   Foreground="AliceBlue"
+                   FontWeight="Bold"
+                   FontSize="18"
+                   VerticalContentAlignment="Center"
+                   Margin="10 0 0 0"/>
+
+
+                            <TextBox Style="{DynamicResource PortalUserNameBoxStyle}" 
+                              x:Name="PortalUserAccount_TextBox"
+                              Text="{Binding portalLoginModel.UserName}"
+                     Width="150" Height="30" Margin="30 0 0 0"
+                     VerticalContentAlignment="Center"
+                              Background="#22000000"
+                              Foreground="White"/>
+
+
+                            <PasswordBox x:Name="PortalUserPassword_PasswordBox" 
+                         Width="150" Height="30" Margin="30 0 0 0"
+                         VerticalContentAlignment="Center"
+                         Style="{DynamicResource PortalPasswordBoxStyle}"
+                                     Background="#22000000" Foreground="White"
+                                     common:PasswordHelper.Attach="True"
+                             common:PasswordHelper.Password="{Binding portalLoginModel.Password, 
+                    Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+
+                            <Button x:Name="Login_Button" 
+                    Content="登      陆" 
+                    Margin="25 0 0 0" 
+                    Width="120" Height="30"  FontSize="14"
+                    Template="{StaticResource PortalLoginButtonTemplate}"
+                                    IsEnabled="{Binding IsEnable}"
+                    Foreground="White" 
+                                    Cursor="Hand"
+                    ToolTip="登陆资源管理系统"
+                                Command="{Binding PortalLoginCommand}"
+                        CommandParameter="{Binding ElementName=window}"/>
+                            <TextBlock 
+                        Text="&#xe7ba;" 
+                        FontFamily="../Assets/Fonts/#iconfont " FontSize="26"
+                        Foreground="White" 
+                          Margin="550,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Margin="10 0 0 0" Foreground="AliceBlue"
+                                   Text="{Binding portalLoginInfo.UserNmae}"
+                                   VerticalAlignment="Center"
+                                   FontSize="14"                />
+                        </StackPanel>
+                        <ProgressBar  x:Name="ShowProgress"
+                     Grid.Row="1" Height="3"                     
+                     IsIndeterminate="True" 
+                     Visibility="{Binding ShowProgress}"  VerticalAlignment="Bottom"/> 
+                    </Grid>
+                    
+                </Border>
+                <!--<StackPanel Visibility="{Binding ShowMenu}"
+                    Orientation="Horizontal" 
+                    Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0">
+                    --><!--<RadioButton Content="首页" Style="{StaticResource NavButtonStyle}" IsChecked="True"/>--><!--
+                    <RadioButton Content="资源辅助" Style="{StaticResource NavButtonStyle}"  IsChecked="False"
+                                 Command="{Binding NaveChangedCommand}"
+                                CommandParameter="WorkPageView"/>
+                    <RadioButton Content="更新内容" Style="{StaticResource NavButtonStyle}" IsChecked="False"/>
+                    <RadioButton Content="关于程序" Style="{StaticResource NavButtonStyle}" IsChecked="False"
+                                 Command="{Binding NaveChangedCommand}"
+                                CommandParameter="AboutPageView"/>
+                    
+                </StackPanel>-->
+                
+                <ContentControl Grid.Row="2" Content="{Binding MainContent}"/>
+            </Grid>
+            <!--<DockPanel Grid.Row="4"  Height="23" >
+                <StatusBar DockPanel.Dock="Bottom" Background="#007DFA" Foreground="White">
+                    <StatusBar.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="140" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </ItemsPanelTemplate>
+                    </StatusBar.ItemsPanel>
+                    <StatusBarItem>
+                        <TextBlock Name="CurrentTableTB" Text="连云港铁通一点支撑中心" Margin="10,0,0,0"/>
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="2">
+                        
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="3">
+                        <TextBlock Text="方案策划：徐进成" />
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="4">
+                        <TextBlock Text="程序设计：刘昌露" />
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="5">
+                        <TextBlock Text="Copyright ©  2020"/>
+                    </StatusBarItem>
+                </StatusBar>
+
+            </DockPanel>-->
+            
+            <!--抽屉式侧边栏-->
+            <Border Background="#EE444444" Width="440" HorizontalAlignment="Right"  >
+                <Border.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Opacity="0.3" Direction="180"/>
+                </Border.Effect>
+
+                <Border.RenderTransform>
+                    <TranslateTransform X="450" x:Name="HelpAnimation"/>
+                </Border.RenderTransform>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="220"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <StackPanel.Background>
+                            <ImageBrush ImageSource="../Assets/Images/banner.jpg"/>
+                        </StackPanel.Background>
+                        <Button x:Name="btnCloseHelp" Background="Transparent"
+                    Width="40" Height="40" BorderThickness="0"
+                        Foreground="White" FontSize="20"
+                        Content="&#xe615;" FontFamily="../Assets/Fonts/#iconfont"
+                        ToolTip="关闭" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Border Background="White" VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Width="100" Height="100" 
+                        CornerRadius="50" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Opacity="0.3" Direction="0"/>
+                            </Border.Effect>
+                            <Border Width="90" Height="90" CornerRadius="50">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="../Assets/Images/Metro-Studio.png"/>
+                                </Border.Background>
+                            </Border>
+                        </Border>
+                        <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                            <TextBlock Text="新管线辅助程序" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="New Portal Assistant" Foreground="#88DDDDDD" FontSize="10" Margin="0 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Border BorderThickness="0 0 0 1" BorderBrush="White" Grid.Row="1"/>
+                    <ScrollViewer Grid.Row="2">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="软件简介" 
+                                       Foreground="White" FontSize="18" FontWeight="Bold"
+                                       HorizontalAlignment="Left" Margin="10 0 0 0"/>
+                            <TextBlock Grid.Row="1" Foreground="White" TextWrapping="Wrap" Margin="10 10 0 0"
+                                Text="为了提高一点支撑工作效率，减化后台人员的操作，快速响应一线装维人员，依据新管线系统进行针对性的开发出相应的查询及处理功能："/>
+                            <TextBlock Grid.Row="2" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                Text="设备资源查询、地址查询、帐号的游离与绑定、割接，批量帐号处理,分光器端口状态修改、箱体地址变更等。"/>
+                            <TextBlock Grid.Row="3" Foreground="White" FontSize="18" FontWeight="Bold"
+                                       HorizontalAlignment="Left" Margin="10 10 0 0"
+                                Text="更新历程"/>
+
+                            <TextBlock Grid.Row="7" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2021-01-01 Ver 2.0.0.0 重要更新-新版管线辅助软件发布"/>
+                            <TextBlock Grid.Row="8" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-12-21 Ver 1.6.5.0 实用工具内加入 批量帐号的游离与解绑(限权)，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="9" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-12-10 Ver1.6.0.0 加入OLT下挂业务查询，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="10" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-12-5 Ver1.5.1.0 加入箱体内地址变更功能，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="11" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-12-3 Ver1.5.0.0 加入箱体内空闲地址上游离帐号绑定功能，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="12" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-11-28 Ver1.4.3.0 加入新增分纤箱分光器功能，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="13" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-11-23 Ver1.4.2.0 更新箱体地址，标记空闲地址，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="14" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-11-18 Ver1.4.1.0 箱体内设备查询，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="15" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-11-15 Ver1.4.0.0 加入箱体覆盖地址查询功能，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="16" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-11-7 Ver1.3.2.0 修复期间已报存在的错误"/>
+                            <TextBlock Grid.Row="17" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-10-30 Ver1.3.0.0 实用工具内加入 帐号割接功能，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="18" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-10-23 Ver1.2.0.0 加入实用工具模块:帐号的SVLAN解绑与游离功能 ，修复已报存在的错误"/>
+                            <TextBlock Grid.Row="19" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-10-20 Ver1.1.1.0 加入分光器端口状态修改功能，修复已报存在的错误 "/>
+                            <TextBlock Grid.Row="20" Foreground="White" TextWrapping="Wrap" Margin="10 5 0 0"
+                                       Text=" 2020-10-15 Ver1.0.0.0 上线测试，具备相关的基础查询功能"/>
+                        </Grid>
+                    </ScrollViewer>
+                    
+
+                </Grid>
+            </Border>
+        </Grid>
+        
+
+    </Border>
+</Window>
